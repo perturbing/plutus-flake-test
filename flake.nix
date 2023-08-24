@@ -1,13 +1,16 @@
 {
-  description = "A very basic flake";
-  inputs.haskellNix.url = "github:input-output-hk/haskell.nix";
-  inputs.nixpkgs.follows = "haskellNix/nixpkgs-unstable";
-  inputs.flake-utils.url = "github:numtide/flake-utils";
-  inputs.CHaP = {
-  url = "github:input-output-hk/cardano-haskell-packages?ref=repo";
-  flake = false;
+  description = "A very basic flake for a plutusTx project";
+
+  inputs = {
+    haskellNix.url = "github:input-output-hk/haskell.nix";
+    nixpkgs.follows = "haskellNix/nixpkgs-unstable";
+    flake-utils.url = "github:numtide/flake-utils";
+    CHaP = {
+      url = "github:input-output-hk/cardano-haskell-packages?ref=repo";
+      flake = false;
+    };
+    iohkNix.url = "github:input-output-hk/iohk-nix"; 
   };
-  inputs.iohkNix.url = "github:input-output-hk/iohk-nix";
 
   outputs = { self, nixpkgs, flake-utils, haskellNix, CHaP, iohkNix }:
     flake-utils.lib.eachSystem [ "x86_64-linux" "x86_64-darwin" "aarch64-linux" "aarch64-darwin" ] (system:
@@ -36,14 +39,22 @@
       # add overlay of the BLS/SECP primitives needed
       ] ++ [ iohkNix.overlays.crypto ];
       pkgs = import nixpkgs { inherit system overlays; inherit (haskellNix) config; };
-      flake = pkgs.helloWorldProject.flake {
-        # This adds support for `nix build .#js-unknown-ghcjs:hello:exe:hello`
-        # crossPlatforms = p: [p.ghcjs];
-      };
+      flake = pkgs.helloWorldProject.flake {};
     in flake // rec {
-      # Built by `nix build .`
+      # Built by `nix build .
       packages.hello = flake.packages."hello:exe:hello";
       packages.world = flake.packages."world:exe:world";
       packages.default = packages.hello;
     });
+
+  nixConfig = {
+    extra-substituters = [
+      "https://cache.iog.io"
+    ];
+    extra-trusted-public-keys = [
+      "hydra.iohk.io:f/Ea+s+dFdN+3Y/G+FDgSq+a5NEWhJGzdjvKNGv0/EQ="
+    ];
+    accept-flake-config = true;
+    allow-import-from-derivation = true;
+  };
 }
