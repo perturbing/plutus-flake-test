@@ -18,3 +18,8 @@ To directly run the executable you can use
 ```bash
 nix run .#hello:exe:hello
 ```
+Use
+```bash
+nix develop
+```
+to enter a shell with cabal hlint and the haskell language server.
