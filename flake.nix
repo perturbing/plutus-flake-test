@@ -43,6 +43,7 @@
     in flake // {
       # Built by `nix build .`
       packages.hello = flake.packages."hello:exe:hello";
-      # packages.world = flake.packages."world:exe:world";
+      packages.world = flake.packages."world:exe:world";
+      packages.default = flake.packages."hello:exe:hello";
     });
 }
