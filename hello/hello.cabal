@@ -1,0 +1,11 @@
+name: hello
+version: 1.0.0.2
+author: Thomas Vellekoop    
+synopsis: "Hello" an example package
+build-type: Simple
+
+executable hello
+  hs-source-dirs: src
+  main-is: main.hs
+  build-depends: base >= 4.2 && < 5
+               , plutus-tx
