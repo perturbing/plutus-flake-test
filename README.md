@@ -2,7 +2,7 @@
 This repo is a test to showcase how "easy" it can be to use flakes to build some project using PlutusTx.
 
 # The structure
-The repository contains two haskall packages, `hello` and `world`. Besides hackage, this project also has CHaP in scope (see the cabal project file).
+The repository contains two haskall packages, `hello` and `world`. Besides hackage, this project also has CHaP in scope (see the cabal project file). Lastly, this flake uses the crypto overlay needed to build most cardano tools (the SECP/BLS packages).
 
 Building an output of the flake can be done via
 ```bash
