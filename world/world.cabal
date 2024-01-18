@@ -9,5 +9,5 @@ executable world
   hs-source-dirs: src
   main-is: main.hs
   build-depends: base >= 4.2 && < 5
-              --  , plutus-tx-plugin
+               , plutus-tx-plugin
                , plutus-tx ^>= 1.20
