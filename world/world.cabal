@@ -1,3 +1,4 @@
+cabal-version: 3.0
 name: world
 version: 1.0.0.2
 author: Thomas Vellekoop    
@@ -8,4 +9,5 @@ executable world
   hs-source-dirs: src
   main-is: main.hs
   build-depends: base >= 4.2 && < 5
-               , plutus-tx
+              --  , plutus-tx-plugin
+               , plutus-tx ^>= 1.20
